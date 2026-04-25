@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, ShieldCheck, Users, Coins, Activity, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck, Users, Coins, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useApp } from "@/contexts/AppContext";
@@ -7,6 +7,7 @@ import { ETH_IMAGES } from "@/lib/eth-images";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatBirr } from "@/lib/ekub";
+import HeroSlideshow from "@/components/HeroSlideshow";
 
 export default function Home() {
   const { t, lang } = useApp();
