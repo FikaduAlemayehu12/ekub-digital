@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, ShieldCheck, Users, Coins, Activity, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck, Users, Coins, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useApp } from "@/contexts/AppContext";
@@ -7,6 +7,7 @@ import { ETH_IMAGES } from "@/lib/eth-images";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatBirr } from "@/lib/ekub";
+import HeroSlideshow from "@/components/HeroSlideshow";
 
 export default function Home() {
   const { t, lang } = useApp();
@@ -49,86 +50,49 @@ export default function Home() {
 
   return (
     <div>
-      {/* HERO */}
+      {/* HERO — centered with auto-rotating slideshow */}
       <section className="relative overflow-hidden ambient-spotlight">
-        <div className="container mx-auto px-4 pt-12 pb-16 md:pt-20 md:pb-24 grid lg:grid-cols-2 gap-10 items-center">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              <Sparkles className="h-3.5 w-3.5" />
-              {t("የኢትዮጵያ የመጀመሪያ ዘመናዊ ዲጂታል እቁብ", "Ethiopia's first modern digital Ekub")}
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              <span className="text-gradient-brand">
-                {t("ባህልህን አክብር።", "Honor tradition.")}
-              </span>
-              <br />
-              {t("ቁጠባህን ዘመናዊ አድርግ።", "Modernize your savings.")}
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-xl text-balance">
-              {t(
-                "ኢቁብኔት የኢትዮጵያን ባህላዊ ዕቁብ ስርዓት ግልጽ፣ ፈጣን እና ደህንነቱ የተጠበቀ ያደርገዋል። ቡድንህን ፍጠር፣ ተቀላቀል፣ ክፍያህን ተቀበል — ሁሉም በአንድ መድረክ።",
-                "EkubNet brings Ethiopia's traditional savings circles into a transparent, fast and secure platform. Create, join, contribute, and receive — all in one place.",
-              )}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg" className="gap-2">
-                <Link to="/dashboard">
-                  {t("ጀምር", "Get started")} <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to="/join">{t("የተከፈቱ እቁቦች ተመልከት", "Browse open Ekubs")}</Link>
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 pt-6">
-              <Stat label={t("ንቁ እቁቦች", "Active Ekubs")} value={String(stats.ekubs)} />
-              <Stat label={t("አባላት", "Members")} value={String(stats.members)} />
-              <Stat label={t("የተከፈለ", "Paid out")} value={formatBirr(stats.paid)} small />
-            </div>
+        <div className="container mx-auto px-4 pt-12 pb-16 md:pt-20 md:pb-24 flex flex-col items-center text-center gap-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary animate-fade-in">
+            <Sparkles className="h-3.5 w-3.5" />
+            {t("የኢትዮጵያ የመጀመሪያ ዘመናዊ ዲጂታል እቁብ", "Ethiopia's first modern digital Ekub")}
           </div>
 
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-3">
-              <img
-                src={ETH_IMAGES[0].src}
-                alt={ETH_IMAGES[0][lang]}
-                width={1280}
-                height={832}
-                className="rounded-2xl object-cover h-64 w-full shadow-elegant"
-              />
-              <div className="grid gap-3">
-                <img
-                  src={ETH_IMAGES[2].src}
-                  alt={ETH_IMAGES[2][lang]}
-                  width={1280}
-                  height={832}
-                  loading="lazy"
-                  className="rounded-2xl object-cover h-[122px] w-full shadow-elegant"
-                />
-                <img
-                  src={ETH_IMAGES[5].src}
-                  alt={ETH_IMAGES[5][lang]}
-                  width={1280}
-                  height={832}
-                  loading="lazy"
-                  className="rounded-2xl object-cover h-[122px] w-full shadow-elegant"
-                />
-              </div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 bg-card/90 backdrop-blur-md border border-border rounded-2xl p-4 shadow-glow hidden md:block">
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-success/20 text-success flex items-center justify-center">
-                  <CheckCircle2 className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-sm font-semibold">{t("ቀጥተኛ ክፍያ", "Live payout")}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {t("የቦሌ ቤተሰብ እቁብ • አሁን", "Bole family Ekub • just now")}
-                  </div>
-                </div>
-              </div>
-            </div>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight max-w-4xl animate-fade-in">
+            <span className="text-gradient-brand">
+              {t("ባህልህን አክብር።", "Honor tradition.")}
+            </span>
+            <br />
+            {t("ቁጠባህን ዘመናዊ አድርግ።", "Modernize your savings.")}
+          </h1>
+
+          <p className="text-lg text-muted-foreground max-w-2xl text-balance">
+            {t(
+              "ኢቁብኔት የኢትዮጵያን ባህላዊ ዕቁብ ስርዓት ግልጽ፣ ፈጣን እና ደህንነቱ የተጠበቀ ያደርገዋል። ቡድንህን ፍጠር፣ ተቀላቀል፣ ክፍያህን ተቀበል — ሁሉም በአንድ መድረክ።",
+              "EkubNet brings Ethiopia's traditional savings circles into a transparent, fast and secure platform. Create, join, contribute, and receive — all in one place.",
+            )}
+          </p>
+
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Button asChild size="lg" className="gap-2">
+              <Link to="/dashboard">
+                {t("ጀምር", "Get started")} <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link to="/join">{t("የተከፈቱ እቁቦች ተመልከት", "Browse open Ekubs")}</Link>
+            </Button>
+          </div>
+
+          {/* Auto-rotating bilingual motivational slideshow */}
+          <div className="w-full pt-4">
+            <HeroSlideshow />
+          </div>
+
+          <div className="grid grid-cols-3 gap-8 pt-4 max-w-2xl w-full">
+            <Stat label={t("ንቁ እቁቦች", "Active Ekubs")} value={String(stats.ekubs)} />
+            <Stat label={t("አባላት", "Members")} value={String(stats.members)} />
+            <Stat label={t("የተከፈለ", "Paid out")} value={formatBirr(stats.paid)} small />
           </div>
         </div>
       </section>
